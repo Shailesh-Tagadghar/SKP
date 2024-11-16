@@ -1,0 +1,40 @@
+1. open cmd -- scala
+
+2. import org.apache.spark._
+3. import org.apache.spark.rdd.RDD
+4. import org.apache.spark.graphx._
+
+5. val vertices = Array((1L,("A")),(2L,("B")),(3L,("C")))
+6. val vRDD = sc.parallelize(vertices)
+7. vRDD.take(1)
+8. vRDD.take(2)
+9. vRDD.take(3)
+10. val edges = Array(Edge(1L,2L,1800),Edge(2L,3L,800),Edge(3L,1L,1400))
+11. val eRDD = sc.parallelize(edges)
+12. eRDD.take(2)
+13. val nowhere = "nowhere"
+14. val graph = Graph(vRDD,eRDD,nowhere)
+
+#To check number of Airports
+15. val numairports = graph.numVertices
+
+#To check routes
+16. val numairports = graph.numEdges
+
+#Route having distance > 1000
+17. (graph.edges.filter{case Edge(src,dst,prop)=>prop>1000}.collect.foreach(println))
+
+#Triplet Information
+18. graph.triplets.take(3).foreach(println)
+
+#Indegree
+19. val i = graph.inDegrees
+20. i.collect()
+
+#Outdegrees
+21. val o = graph.outDegrees
+22. o.collect()
+
+#Total Degree
+23. val t = graph.degrees
+24. t.collect()
