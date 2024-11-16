@@ -54,6 +54,8 @@
   </property>
 </configuration>
 
+chnage this path to actual path -- file:///C:/hbasesetup/hbase-2.2.5/hbase and /C:/hbasesetup/hbase-2.2.5/zookeeper
+
 5. Open Environment -- in system var -- create new var path -- HBASE_HOME -- D:\hbasesetup\hbase-2.2.5 and in path -- new -- %HBASE_HOME%\bin
 6. open C:\Windows\System32\cmd.exe--cmd
 7. type -- start-hbase.cmd -- to start hbase -- JDK 11 is required -- https://www.oracle.com/in/java/technologies/javase/jdk11-archive-downloads.html#license-lightbox
