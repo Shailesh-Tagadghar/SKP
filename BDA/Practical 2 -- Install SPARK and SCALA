@@ -1,0 +1,114 @@
+// Install Scala -- https://www.scala-lang.org/download/
+
+1. add shown path -- C:\Users\Shailesh\AppData\Local\Coursier\data\bin into environment variable SCALA_HOME and this path add into both system as well.
+2. open this path in cmd -- type -- scala
+3. it will open scala terminal 
+4. type -- println("hello")
+5. type -- var a: Int = 10
+6. type -- a = a - 5
+7. type -- var b: Int = 10
+8. type -- var c: Int = 20
+9. type -- var d: Int = b + c
+
+
+// Install Spark -- https://www.apache.org/dyn/closer.lua/spark/spark-3.5.3/spark-3.5.3-bin-hadoop3.tgz
+
+1. Download and Intall Spark and Extract that file
+2. Add to Environment -- SPARK_HOME -- D:\spark-3.5.3-bin-hadoop3 and D:\spark-3.5.3-bin-hadoop3\bin
+3. open cmd -- spark-shell
+Type : 
+Reading json File
+4. val x = spark.read.json("D:/spark-3.5.3-bin-hadoop3/examples/src/main/resources/people.json")
+5. x.show()
+6. x.printSchema()
+7. x.select($"name",$"age").show()
+8. x.filter($"age">20).show() 
+
+Reading CSV/Excel File
+9. var y = spark.read.csv("D:/spark-3.5.3-bin-hadoop3/examples/src/main/resources/people.csv").show()
+
+Creating an SQL Tempory View
+10. x.createOrReplaceTempView("people")
+11. val sqlDF = spark.sql("Select * from people")
+12. sqlDF.show()
+
+Creating an SQL Global Tempory View
+13. x.createGlobalTempView("people")
+14. spark.sql("SELECT * FROM global_temp.people").show()
+15. spark.newSession().sql("SELECT * FROM global_temp.people").show()
+
+Creating new Dataset
+16. case class Person(name: String,age: Long)
+17. val caseClassDS = Seq(Person("Andy", 32)).toDS()
+18. caseClassDS.show()
+19. val primitiveDS = Seq(1, 2, 3).toDS()
+20. primitiveDS.map(_ + 1).collect()
+21. val peopleDS = spark.read.json("D:/spark-3.5.3-bin-hadoop3/examples/src/main/resources/people.json").as[Person]
+22. peopleDS.show()
+
+// Inferring the Schema Using Reflection
+
+1. import spark.implicits._ 
+2. val peopleDF = spark.sparkContext.textFile("D:/spark-3.5.3-bin-hadoop3/examples/src/main/resources/people.txt").map(_.split(",")).map(attributes => Person(attributes(0), attributes(1).trim.toInt)).toDF()
+
+//Register the DataFrame as a temporary view
+3. peopleDF.createOrReplaceTempView("people")
+
+// SQL statements can be run by using the sql methods provided by Spark
+4. val teenagersDF = spark.sql("SELECT name, age FROM people WHERE age BETWEEN 13 AND 19")
+
+// The columns of a row in the result can be accessed by field index
+5. teenagersDF.map(teenager => "Name: " + teenager(0)).show()
+
+// or by field name
+6. teenagersDF.map(teenager => "Name: " + teenager.getAs[String]("name")).show()
+
+// No pre-defined encoders for Dataset[Map[K,V]], define explicitly
+7. implicit val mapEncoder = org.apache.spark.sql.Encoders.kryo[Map[String, Any]]
+
+// Primitive types and case classes can be also defined as
+// 8. implicit val stringIntMapEncoder: Encoder[Map[String, Any]] = ExpressionEncoder()
+
+9. teenagersDF.map(teenager => teenager.getValuesMap[Any](List("name", "age"))).collect()
+
+// Programmatically Specifying the Schema
+//Create an RDD of Rows from the original RDD;
+
+1. import org.apache.spark.sql.Row
+2. import org.apache.spark.sql.types._
+
+//create RDD
+3. val peopleRDD = spark.sparkContext.textFile("D:/spark-3.5.3-bin-hadoop3/examples/src/main/resources/people.txt")
+
+//The schema is encoded in a string
+4. val schemaString = "name age"
+
+// Generate the schema based on the string of schema
+5. val fields = schemaString.split(" ").map(fieldName => StructField(fieldName, StringType, nullable = true))
+6.val schema = StructType(fields)
+
+// Convert records of the RDD (people) to Rows
+7. val rowRDD = peopleRDD.map(_.split(",")).map(attributes => Row(attributes(0), attributes(1).trim))
+
+// Apply the schema to the RDD
+8. val peopleDF = spark.createDataFrame(rowRDD, schema)
+
+// Creates a temporary view using the DataFrame
+9. peopleDF.createOrReplaceTempView("people")
+
+// SQL can be run over a temporary view created using DataFrames
+10. val results = spark.sql("SELECT name FROM people")
+
+11. results.map(attributes => "Name: " + attributes(0)).show()
+
+
+//Basic Operations with csv file
+
+1. val myData = spark.read.format(“csv”).option(“inferSchema”,”true”).option(“header”,”true”).option(“delimeter”,”:”).load(“D:/spark-3.5.3-bin-hadoop3/examples/src/main/resources/people.csv”)
+2. myData.show()
+import org.apache.spark.sql.functions.col
+3. myData.select($"name","$age").show()
+4. myData.count()
+5. myData.count().toDouble
+
+
