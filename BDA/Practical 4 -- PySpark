@@ -1,0 +1,63 @@
+#!pip install pyspark
+
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import col
+from pyspark.ml.feature import Imputer
+
+
+# Create a Spark session
+spark = SparkSession.builder.appName("Read CSV").getOrCreate()
+# Path to your CSV file
+csv_file_path = "Student.csv"
+# Read the CSV file into a DataFrame. inferSchema tries to determine the datatype ofvalues in the fields.
+df = spark.read.csv(csv_file_path, header=True, inferSchema=True)
+# Display the DataFrame
+df.show()
+
+type(df)
+
+df.printSchema()
+
+df.head(5) or df.show(5)
+
+df.columns
+
+df.select('Name').show()
+
+df.select(['Name','Experience']).show()
+
+df.dtypes
+
+df.describe().show()
+
+df.withColumn('Experience after 2 years',df['Experience']+2)
+
+df.show()
+
+df.drop('Experience after 2 years').show()
+
+df.withColumnRenamed('Name','New Name').show()
+
+df.show()
+
+df = df.na.drop()
+df.show()
+
+df = df.na.drop(how="all")
+df.show()
+
+df = df.na.drop(how="any", thresh = 2)
+df.show()
+
+df = df.na.drop(how = "any",subset = ['Experience'])
+df.show()
+
+df = df.na.fill('Missing',['Age','Experience']).show()
+
+df = df.na.fill("Missing")
+df.show()
+
+imputer = Imputer(inputCols = ['Age','Experience'], outputCols = ["{}_imputed".format(c) for c in['Age','Experience']]).setStrategy("mean")
+
+imputer.fit(df).transform(df).show()
+
