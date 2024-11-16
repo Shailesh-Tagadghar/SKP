@@ -1,0 +1,62 @@
+// install HBase -- https://archive.apache.org/dist/hbase/2.2.5/hbase-2.2.5-bin.tar.gz
+// to install HBASE steps : https://www.learntospark.com/2020/08/setup-hbase-in-windows.html
+// Extract Files
+
+1. Add to folders -- hbase and zookeeper
+2. open bin folder -- open hbase.cmd file -- search for java_arguments -- remove %HEAP_SETTINGS%
+   
+   set HEAP_SETTINGS=%JAVA_HEAP_MAX% %JAVA_OFFHEAP_MAX%
+   set java_arguments= %HBASE_OPTS% -classpath "%CLASSPATH%" %CLASS% %hbase-command-arguments%
+
+3. open conf folder -- open hbase-env.cmd file -- 
+    set JAVA_HOME=C:\Java\jdk-20 || C:\Java\jdk-11
+    set HBASE_CLASSPATH=%HBASE_HOME%\lib\client-facing-thirdparty\* 
+    set HBASE_HEAPSIZE=8000
+    set HBASE_OPTS="-XX:+UseConcMarkSweepGC" "-Djava.net.preferIPv4Stack=true"
+    set SERVER_GC_OPTS="-verbose:gc" "-XX:+PrintGCDetails" "-XX:+PrintGCDateStamps" %HBASE_GC_OPTS%	
+    set HBASE_USE_GC_LOGFILE=true
+    set HBASE_JMX_BASE="-Dcom.sun.management.jmxremote.ssl=false""-Dcom.sun.management.jmxremote.authenticate=false"	
+    set HBASE_MASTER_OPTS=%HBASE_JMX_BASE% "-Dcom.sun.management.jmxremote.port=10101"
+    set HBASE_REGIONSERVER_OPTS=%HBASE_JMX_BASE%"-Dcom.sun.management.jmxremote.port=10102"	
+    set HBASE_THRIFT_OPTS=%HBASE_JMX_BASE% "-Dcom.sun.management.jmxremote.port=10103"
+    set HBASE_ZOOKEEPER_OPTS=%HBASE_JMX_BASE% "-Dcom.sun.management.jmxremote.port=10104"	
+    set HBASE_REGIONSERVERS=%HBASE_HOME%\conf\regionservers 
+    set HBASE_LOG_DIR=%HBASE_HOME%\logs 
+    set HBASE_IDENT_STRING=%USERNAME% 
+    set HBASE_MANAGES_ZK=true
+
+4. open conf folder -- open hbase-site.xml -- 
+    <configuration>
+      <property>
+        <name>hbase.cluster.distributed</name>
+        <value>false</value>
+      </property>
+      <property>
+        <name>hbase.tmp.dir</name>
+        <value>./tmp</value>
+      </property>
+      <property>
+        <name>hbase.unsafe.stream.capability.enforce</name>
+        <value>false</value>
+      </property>
+
+  <property>
+    <name>hbase.rootdir</name>
+    <value>file:///C:/hbasesetup/hbase-2.2.5/hbase</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.property.dataDir</name>
+    <value>/C:/hbasesetup/hbase-2.2.5/zookeeper</value>
+  </property>
+  <property>
+    <name> hbase.zookeeper.quorum</name>
+    <value>localhost</value>
+  </property>
+</configuration>
+
+5. Open Environment -- in system var -- create new var path -- HBASE_HOME -- D:\hbasesetup\hbase-2.2.5 and in path -- new -- %HBASE_HOME%\bin
+6. open C:\Windows\System32\cmd.exe--cmd
+7. type -- start-hbase.cmd -- to start hbase -- JDK 11 is required -- https://www.oracle.com/in/java/technologies/javase/jdk11-archive-downloads.html#license-lightbox
+8. type -- jps
+9. type -- hbase shell
+
