@@ -71,7 +71,7 @@
       </configuration>     
 
     5. hadoop-env
-       set JAVA_HOME=C:\Java\jdk-20 -- upload java jdk path here
+       set JAVA_HOME=C:\Java\jdk-20 -- upload java jdk path here  ////// C:\Progra~1\Java\jdk-20
 
 9. Delete bin folder from hadoop
 10. download bin folder from -- https://drive.google.com/drive/folders/1iURNbow2IglhAhSy3sfY5xxVfAg33NBW
