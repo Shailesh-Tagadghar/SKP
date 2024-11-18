@@ -1,7 +1,9 @@
 // Install Hadoop
 //https://apsaggu.wordpress.com/2023/06/29/installation-of-apache-hadoop-on-windows-11/
 
-// for java jdk 8 -- https://www.java.com/en/download/
+// for java jre 8 -- https://www.java.com/en/download/
+
+//for java jdk 8 -- https://www.oracle.com/java/technologies/downloads/#java8-windows
 
 // First Check for Java JDK -- Set into Environment Path... JAVA_HOME -- binFolder -- same as in system path as well.
 
