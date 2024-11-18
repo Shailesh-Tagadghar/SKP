@@ -16,62 +16,74 @@
 3. After that - this is open another zip files -- Extract Files
 4. Copy Hadoop file into -- C drive
 5. Open Envirionment Var -- Add Path -- 
-    JAVA_HOME -- C:\Program Files\Java\jdk-20\bin and 
-    HADOOP_HOME -- C:\hadoop-3.4.1\bin same in system var as well add this both and C:\hadoop-3.4.1\sbin this as well.
+    In Variables -- 
+    JAVA_HOME -- C:\Program Files\Java\jdk1.8\bin and 
+    HADOOP_HOME -- C:\hadoop-3.4.1\bin 
+
+    In System Var --
+      C:\Program Files\Java\jdk1.8\bin
+      C:\hadoop\bin
+      C:\hadoop\sbin
+
 6. Cmd -- java -- java --version || hadoop -- hadoop version
+
 7. Create Folder -- Data -- into Hadoop -- into Data Folder -- Create 2 folders -- namenode and datanode 
+
 8. open etc folder -- Hadoop Folder -- change configuration of below files...
     1. core-site
 
-        <configuration>
-           <property>
-              <name>fs.default.name</name>
-              <value>hdfs://localhost:9000</value>
-           </property>
-        </configuration>
+       <configuration>
+<property>
+  <name>fs.defaultFS</name>
+  <value>hdfs://localhost:9000</value>
+</property>
+</configuration>
 
     2. hdfs-site
        
-       <configuration>
-         <property>
+      <configuration>
+ <property>
            <name>dfs.replication</name>
            <value>1</value>
          </property>
          <property>
            <name>dfs.namenode.name.dir</name>
-           <value>C:\hadoop-3.4.1\data\namenode</value>
+           <value>C:\hadoop\data\namenode</value>
          </property>
          <property>
            <name>dfs.datanode.data.dir</name>
-           <value>C:\hadoop-3.4.1\data\datanode</value>
+           <value>C:\hadoop\data\datanode</value>
          </property>
-      </configuration>
+</configuration>
 
     3. mapred-site
      
-      <configuration>
-        <property>
-          <!-- <name>mapred.framework.name</name> -->
-          <name>mapreduce.framework.name</name>
-          <value>yarn</value>
-        </property>
-      </configuration>
+    <configuration>
+<property>
+  <name>mapreduce.framework.name</name>
+  <value>yarn</value>
+</property>
+</configuration>
 
     4. yarn-site
      
-       <configuration>
-         <property>
-           <name>yarn.nodemanager.aux-services</name>
-           <value>mapreduce_shuffle</value>
-         </property>
-         <property>
-           <name>yarn.nodemanager.auxservice.mapreduce.shuffle.class</name>
-           <value>org.apache.hadoop.mapred.shuffleHandler</value>
-         </property>
-      </configuration>     
+      <configuration>
+<property>
+  <name>yarn.nodemanager.aux-services</name>
+  <value>mapreduce_shuffle</value>
+</property>
+<property>
+  <name>yarn.nodemanager.auxservices.mapreduce.shuffle.class</name>
+  <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+</property>
+<!-- Site specific YARN configuration properties -->
+
+</configuration>     
 
     5. hadoop-env
-       set JAVA_HOME=C:\Java\jdk-20 -- upload java jdk path here  ////// C:\Progra~1\Java\jdk-20
+       set JAVA_HOME=C:\Java\jdk-20 -- upload java jdk path here  
+       OR IF JAVA IS IN PROGRAM FILES THEN WRITE LIKE THIS
+       set JAVA_HOME=C:/Progra~1/Java/jdk1.8 
 
 9. Delete bin folder from hadoop
 10. download bin folder from -- https://drive.google.com/drive/folders/1iURNbow2IglhAhSy3sfY5xxVfAg33NBW
@@ -80,15 +92,16 @@
 /// ---- open bin folder -- run winutils files -- it will give an error that .dll file is missing -- download that file -- https://www.dll-files.com/msvcr120.dll.html
 /// ---- open file explorer -- copy that downloaded .dll file and paste -- into C:\Windows\System32
 
-12. open hadoop folder -- into cmd
-13. type -- hdfs namenode -format ------- it will show this msg  -- Storage directory C:\hadoop-3.4.1\data\namenode has been successfully formatted.
+12. open hadoop folder OR CMD
+13. type -- *** hdfs namenode -format 
+     ------- it will show this msg  -- Storage directory C:\hadoop-3.4.1\data\namenode has been successfully formatted.
 14. open sbin folder -- into cmd
-15. type -- start-dfs.cmd -- to open datanode and namenode
-16. to check running status -- type --- jps
-17. to start Yarn -- cmd -- type -- start-yarn.cmd 
+15. type -- *** start-dfs.cmd -- to open datanode and namenode
+16. to check running status -- type --- *** jps
+17. to start Yarn -- cmd -- type -- *** start-yarn.cmd 
 18. to check running status -- type --- jps
-19. to open Hadoop HDFS-- open browser -- localhost:9870
-20. to open Yarn -- open browser -- localhost:8088
+19. to open ** -- Hadoop HDFS-- open browser -- localhost:9870
+20. to open ** -- Yarn -- open browser -- localhost:8088
 
 if yarn gets shutdown -- then download -- https://aka.ms/vs/17/release/vc_redist.x64.exe or install JAVA 11 -- https://www.oracle.com/in/java/technologies/javase/jdk11-archive-downloads.html#license-lightbox
 
