@@ -1,4 +1,5 @@
 // Install Hadoop
+//https://apsaggu.wordpress.com/2023/06/29/installation-of-apache-hadoop-on-windows-11/
 
 // First Check for Java JDK -- Set into Environment Path... JAVA_HOME -- binFolder -- same as in system path as well.
 
