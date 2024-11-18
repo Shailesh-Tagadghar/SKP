@@ -76,6 +76,10 @@
 9. Delete bin folder from hadoop
 10. download bin folder from -- https://drive.google.com/drive/folders/1iURNbow2IglhAhSy3sfY5xxVfAg33NBW
 11. Extract into -- hadoop folder -- where deleted bin was
+
+/// ---- open bin folder -- run winutils files -- it will give an error that .dll file is missing -- download that file -- https://www.dll-files.com/msvcr120.dll.html
+/// ---- open file explorer -- copy that downloaded .dll file and paste -- into C:\Windows\System32
+
 12. open hadoop folder -- into cmd
 13. type -- hdfs namenode -format ------- it will show this msg  -- Storage directory C:\hadoop-3.4.1\data\namenode has been successfully formatted.
 14. open sbin folder -- into cmd
