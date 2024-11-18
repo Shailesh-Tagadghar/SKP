@@ -9,7 +9,7 @@
    set java_arguments= %HBASE_OPTS% -classpath "%CLASSPATH%" %CLASS% %hbase-command-arguments%
 
 3. open conf folder -- open hbase-env.cmd file -- 
-    set JAVA_HOME=C:\Java\jdk-20 || C:\Java\jdk-11
+    set JAVA_HOME=C:\Java\jdk-20 || C:\Java\jdk-11 || set JAVA_HOME=C:\Progra~1\Java\jdk1.8
     set HBASE_CLASSPATH=%HBASE_HOME%\lib\client-facing-thirdparty\* 
     set HBASE_HEAPSIZE=8000
     set HBASE_OPTS="-XX:+UseConcMarkSweepGC" "-Djava.net.preferIPv4Stack=true"
@@ -42,11 +42,11 @@
 
   <property>
     <name>hbase.rootdir</name>
-    <value>file:///C:/hbasesetup/hbase-2.2.5/hbase</value>
+    <value>C:\hbase\hbase</value>
   </property>
   <property>
     <name>hbase.zookeeper.property.dataDir</name>
-    <value>/C:/hbasesetup/hbase-2.2.5/zookeeper</value>
+    <value>C:\hbase\zookeeper</value>
   </property>
   <property>
     <name> hbase.zookeeper.quorum</name>
@@ -57,6 +57,14 @@
 chnage this path to actual path -- file:///C:/hbasesetup/hbase-2.2.5/hbase and /C:/hbasesetup/hbase-2.2.5/zookeeper
 
 5. Open Environment -- in system var -- create new var path -- HBASE_HOME -- D:\hbasesetup\hbase-2.2.5 and in path -- new -- %HBASE_HOME%\bin
+
+// go to Hadoop -- sbin -- folder -- cmd -- 
+   type -- *** start-dfs.cmd
+   type -- *** start-yarn.cmd
+
+then Open Hbase -- bin -- folder -- cmd
+start-hbase.cmd
+
 6. open C:\Windows\System32\cmd.exe--cmd
 7. type -- start-hbase.cmd -- to start hbase -- JDK 11 is required -- https://www.oracle.com/in/java/technologies/javase/jdk11-archive-downloads.html#license-lightbox
 8. type -- jps
