@@ -3,7 +3,7 @@
 
 // for java jre 8 -- https://www.java.com/en/download/
 
-//for java jdk 8 -- https://www.oracle.com/java/technologies/downloads/#java8-windows
+//for java jdk 8 -- https://www.oracle.com/in/java/technologies/javase/javase8-archive-downloads.html
 
 // First Check for Java JDK -- Set into Environment Path... JAVA_HOME -- binFolder -- same as in system path as well.
 
